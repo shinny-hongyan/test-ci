@@ -11,6 +11,11 @@ jobs:
       options: --shm-size=2g
 
     steps:
+      - name: Install all dependencies
+        run: |
+          apt-get update
+          apt install -y git git-lfs
+
       - name: Checkout
         uses: actions/checkout@v3
         with:
