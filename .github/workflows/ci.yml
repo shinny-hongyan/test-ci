@@ -32,6 +32,7 @@ jobs:
           cmakeListsTxtPath: "${{ github.workspace }}/CMakeLists.txt"
           configurePreset: "default"
           buildPreset: "release"
+          configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake']"
 
       - name: Test
         run: |
