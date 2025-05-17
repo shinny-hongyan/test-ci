@@ -30,6 +30,15 @@ jobs:
       - name: Install CMake
         uses: lukka/get-cmake@latest
 
+      - name: Cache vcpkg
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ github.workspace }}/vcpkg
+            ~/.cache/vcpkg/archives
+          key: ubuntu-latest-vcpkg-${{ hashFiles('**/vcpkg.json') }}
+          restore-keys: ubuntu-latest-vcpkg-
+
       - name: Run vcpkg
         uses: lukka/run-vcpkg@v11
 
