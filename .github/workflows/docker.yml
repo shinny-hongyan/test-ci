@@ -34,6 +34,7 @@ jobs:
           ls -lrth
 
           git config --global --add safe.directory ${GITHUB_WORKSPACE}
+          echo "WORK_HOME=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
 
       - name: Install CMake
         uses: lukka/get-cmake@latest
@@ -41,24 +42,13 @@ jobs:
       - name: Run vcpkg
         uses: lukka/run-vcpkg@v11
 
-      - name: Build Once
-        uses: lukka/run-cmake@v10
-        env:
-          CMAKE_PATH: $GITHUB_WORKSPACE/CMakeLists.txt
-          VCPKG_TOOLCHAIN: $GITHUB_WORKSPACE/vcpkg/scripts/buildsystems/vcpkg.cmake
-        with:
-          cmakeListsTxtPath: "${{ env.CMAKE_PATH }}"
-          configurePreset: "default"
-          buildPreset: "release"
-          configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_TOOLCHAIN }}']"
-
       - name: Build 
         uses: lukka/run-cmake@v10
         with:
-          cmakeListsTxtPath: "$GITHUB_WORKSPACE/CMakeLists.txt"
+          cmakeListsTxtPath: "${{ env.WORK_HOME }}/CMakeLists.txt"
           configurePreset: "default"
           buildPreset: "release"
-          configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/vcpkg/scripts/buildsystems/vcpkg.cmake']"
+          configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=${{ env.WORK_HOME }}/vcpkg/scripts/buildsystems/vcpkg.cmake']"
 
       - name: Test
         run: |
