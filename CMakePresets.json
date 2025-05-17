@@ -12,7 +12,7 @@
             "description": "Default build using Unix Makefiles",
             "generator": "Unix Makefiles",
             "binaryDir": "${sourceDir}/build",
-            "toolchainFile": "${sourceDir}/docker-ci/vcpkg/scripts/buildsystems/vcpkg.cmake"
+            "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
         }
     ],
     "buildPresets": [
