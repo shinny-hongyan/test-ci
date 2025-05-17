@@ -33,7 +33,7 @@ jobs:
           buildPreset: "release"
           configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=/home/runner/work/test-ci/test-ci/vcpkg/scripts/buildsystems/vcpkg.cmake']"
 
-      - name: Test print
+      - name: Test
         run: |
           cd ${{ github.workspace }}/build
           ./rapidjson_demo
