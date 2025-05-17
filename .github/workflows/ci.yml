@@ -1,0 +1,39 @@
+name: build
+
+on: push
+
+jobs:
+  build-ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+          submodules: recursive
+
+      - name: Install CMake
+        uses: lukka/get-cmake@latest
+        with:
+          cmakeVersion: 3.21.0
+
+      - name: Run vcpkg
+        uses: lukka/run-vcpkg@v10
+        with:
+          vcpkgDirectory: "${{ github.workspace }}/vcpkg"
+          vcpkgGitCommitId: 9dd12f8d791f6fa4e396adbebc714d51cbee2143
+          vcpkgJsonGlob: "workspace/vcpkg.json"
+          runVcpkgInstall: true
+
+      - name: Build
+        uses: lukka/run-cmake@v10
+        with:
+          cmakeListsTxtPath: "${{ github.workspace }}/CMakeLists.txt"
+          configurePreset: "default"
+          buildPreset: "release"
+
+      - name: Test
+        run: |
+          cd ${{ github.workspace }}/build
+          ./rapidjson_demo
