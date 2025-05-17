@@ -36,15 +36,15 @@ jobs:
       - name: Build
         uses: lukka/run-cmake@v10
         with:
-          cmakeListsTxtPath: "${{ github.workspace }}/CMakeLists.txt"
+          cmakeListsTxtPath: "${{ env.WORK_HOME }}/CMakeLists.txt"
           configurePreset: "default"
           buildPreset: "release"
-          configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=/home/runner/work/test-ci/test-ci/vcpkg/scripts/buildsystems/vcpkg.cmake']"
+          configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=${{ env.WORK_HOME }}/vcpkg/scripts/buildsystems/vcpkg.cmake']"
 
       - name: Test
         run: |
           ls -lrth
-          cd ${{ github.workspace }}/build
+          cd ${{ env.WORK_HOME }}/build
           ./rapidjson_demo
 
   build-on-docker:
@@ -102,7 +102,7 @@ jobs:
       - name: Test
         run: |
           ls -lrth
-          cd ${GITHUB_WORKSPACE}/build
+          cd ${{ env.WORK_HOME }}/build
           ./rapidjson_demo
 
 
