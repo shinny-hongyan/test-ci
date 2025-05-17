@@ -41,7 +41,18 @@ jobs:
       - name: Run vcpkg
         uses: lukka/run-vcpkg@v11
 
-      - name: Build
+      - name: Build Once
+        uses: lukka/run-cmake@v10
+        env:
+          CMAKE_PATH: $GITHUB_WORKSPACE/CMakeLists.txt
+          VCPKG_TOOLCHAIN: $GITHUB_WORKSPACE/vcpkg/scripts/buildsystems/vcpkg.cmake
+        with:
+          cmakeListsTxtPath: "${{ env.CMAKE_PATH }}"
+          configurePreset: "default"
+          buildPreset: "release"
+          configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_TOOLCHAIN }}']"
+
+      - name: Build 
         uses: lukka/run-cmake@v10
         with:
           cmakeListsTxtPath: "$GITHUB_WORKSPACE/CMakeLists.txt"
