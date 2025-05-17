@@ -9,6 +9,8 @@ jobs:
     container:
       image: "debian:11"
       options: --shm-size=2g
+      volumes:
+        - ${{ github.workspace }}:${{ github.workspace }}
 
     steps:
       - name: Install all dependencies
@@ -25,7 +27,9 @@ jobs:
       - name: Print
         run: |
           pwd
-          echo ${{ github.workspace }}
+          echo "Current directory: $(pwd)"
+          echo "GitHub workspace: ${{ github.workspace }}"
+          echo "Contents:"
           ls -lrth
 
       - name: Install CMake
