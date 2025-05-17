@@ -30,7 +30,7 @@ jobs:
       - name: Install CMake
         uses: lukka/get-cmake@latest
 
-      - name: Cache vcpkg
+      - name: Cache vcpkg 
         uses: actions/cache@v4
         with:
           path: |
