@@ -38,3 +38,7 @@ jobs:
           ls -lrth
           cd ${{ github.workspace }}/build
           ./rapidjson_demo
+
+      - name: Print
+        run: |
+          tree . -d
