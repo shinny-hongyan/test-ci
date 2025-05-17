@@ -25,9 +25,6 @@ jobs:
           runVcpkgInstall: true
           doNotCache: false
 
-      - name: Vcpkg integrate install
-        run: ${{ github.workspace }}/vcpkg/vcpkg integrate install
-
       - name: Build
         uses: lukka/run-cmake@v10
         with:
