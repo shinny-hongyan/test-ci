@@ -14,7 +14,7 @@ jobs:
       - name: Install all dependencies
         run: |
           apt-get update
-          apt install -y git git-lfs
+          apt install -y git git-lfs unzip
 
       - name: Checkout
         uses: actions/checkout@v3
