@@ -41,8 +41,6 @@ jobs:
 
       - name: Run vcpkg
         uses: lukka/run-vcpkg@v11
-        with:
-          runVcpkgInstall: true
 
       - name: Build
         uses: lukka/run-cmake@v10
