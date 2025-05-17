@@ -9,8 +9,6 @@ jobs:
     container:
       image: "debian:11"
       options: --shm-size=2g
-      volumes:
-        - ${{ github.workspace }}:${{ github.workspace }}
 
     steps:
       - name: Install all dependencies
@@ -26,6 +24,7 @@ jobs:
 
       - name: Print
         run: |
+          echo $HOME
           pwd
           echo "Current directory: $(pwd)"
           echo "GitHub workspace: ${{ github.workspace }}"
