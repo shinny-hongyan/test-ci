@@ -2,6 +2,13 @@
     "name": "zq",
     "dependencies": [
         "fmt",
+        "asio",
+        "expected-lite",
+        "fmt",
+        "llhttp",
+        "libzip",
+        "sqlite3",
+        "libpq",
         "rapidjson"
     ]
 }
