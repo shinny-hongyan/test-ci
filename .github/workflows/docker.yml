@@ -14,7 +14,12 @@ jobs:
       - name: Install all dependencies
         run: |
           apt-get update
-          apt install -y git git-lfs unzip curl
+          apt install -y zlib1g zlib1g-dev bzip2 lzma lzma-dev liblzma-dev flex bison
+          apt install -y build-essential git git-lfs wget libssl-dev curl zip unzip tar pkg-config
+          apt-get install -y autoconf-archive elfutils jq
+          apt-get install -y procps findutils grep gawk
+          apt --fix-broken install
+          apt-get install -y postgresql postgresql-client libpq-dev
 
       - name: Checkout
         uses: actions/checkout@v3
