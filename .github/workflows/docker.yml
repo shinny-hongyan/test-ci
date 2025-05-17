@@ -28,6 +28,7 @@ jobs:
           pwd
           echo "Current directory: $(pwd)"
           echo "GitHub workspace: ${{ github.workspace }}"
+          echo "GitHub workspace: ${{ GITHUB_WORKSPACE }}"
           echo "Contents:"
           ls -lrth
 
