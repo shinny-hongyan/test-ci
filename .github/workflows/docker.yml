@@ -29,6 +29,7 @@ jobs:
           echo "Current directory: $(pwd)"
           echo "GitHub workspace: ${{ github.workspace }}"
           echo "GitHub workspace:" $GITHUB_WORKSPACE
+          echo "GitHub workspace: ${GITHUB_WORKSPACE}" 
           echo "Contents:"
           ls -lrth
 
@@ -41,15 +42,15 @@ jobs:
       - name: Build
         uses: lukka/run-cmake@v10
         with:
-          cmakeListsTxtPath: "${{ github.workspace }}/CMakeLists.txt"
+          cmakeListsTxtPath: "${GITHUB_WORKSPACE}/CMakeLists.txt"
           configurePreset: "default"
           buildPreset: "release"
-          configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=/home/runner/work/test-ci/test-ci/vcpkg/scripts/buildsystems/vcpkg.cmake']"
+          configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=${GITHUB_WORKSPACE}/vcpkg/scripts/buildsystems/vcpkg.cmake']"
 
       - name: Test
         run: |
           ls -lrth
-          cd ${{ github.workspace }}/build
+          cd ${GITHUB_WORKSPACE}/build
           ./rapidjson_demo
 
 
