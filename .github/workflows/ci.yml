@@ -15,8 +15,6 @@ jobs:
 
       - name: Install CMake
         uses: lukka/get-cmake@latest
-        with:
-          cmakeVersion: 3.21.0
 
       - name: Run vcpkg
         uses: lukka/run-vcpkg@v11
@@ -31,7 +29,7 @@ jobs:
         run: ${{ github.workspace }}/vcpkg/vcpkg integrate install
 
       - name: Build
-        uses: lukka/run-cmake@v11
+        uses: lukka/run-cmake@v10
         with:
           cmakeListsTxtPath: "${{ github.workspace }}/CMakeLists.txt"
           configurePreset: "default"
