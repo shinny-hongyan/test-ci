@@ -13,21 +13,6 @@ jobs:
           lfs: true
           submodules: recursive
 
-      - name: Print
-        run: |
-          echo $HOME
-          pwd
-          echo "Current directory: $(pwd)"
-          echo "GitHub workspace: ${{ github.workspace }}"
-          echo "GitHub workspace:" $GITHUB_WORKSPACE
-          echo "GitHub workspace: ${GITHUB_WORKSPACE}" 
-          echo "Contents:"
-          ls -lrth
-
-
-      - name: Install CMake
-        uses: lukka/get-cmake@latest
-
       - name: Cache vcpkg 
         uses: actions/cache@v4
         with:
@@ -42,12 +27,8 @@ jobs:
         with:
           vcpkgDirectory: "${{ github.workspace }}/vcpkg"
           vcpkgArguments: "@${{ github.workspace }}/workspace/vcpkg-x64-linux.txt"
-
-      - name: Test
-        run: |
-          ls -lrth
-          cd ${{ env.WORK_HOME }}/build
-          ./rapidjson_demo
+          vcpkgGitCommitId: f26ec398c25c4980f33a50391f00a75f7ad62ef7
+          appendedCacheKey: ${{ hashFiles('workspace/vcpkg-x64-linux.txt') }}
 
   # build-on-docker:
   #   runs-on: ubuntu-latest
