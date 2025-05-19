@@ -2,3 +2,10 @@
 x64-linux
 asio
 rapidjson
+fmt
+llhttp
+libzip
+sqlite3
+libpq
+infoware
+benchmark
