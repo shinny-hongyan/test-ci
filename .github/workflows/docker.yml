@@ -24,10 +24,6 @@ jobs:
           echo "Contents:"
           ls -lrth
 
-          git config --global --add safe.directory ${GITHUB_WORKSPACE}
-          echo "WORK_HOME=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
-
-           ${{ github.workspace }}/vcpkg/vcpkg remove --outdated --recurse
 
       - name: Install CMake
         uses: lukka/get-cmake@latest
