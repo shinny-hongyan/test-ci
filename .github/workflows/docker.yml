@@ -61,10 +61,6 @@ jobs:
           cd ${{ env.WORK_HOME }}/build
           ./rapidjson_demo
 
-      - name: Print
-        run: |
-          ls -lrth  ~/.cache/vcpkg
-
   build-on-docker:
     runs-on: ubuntu-latest
 
