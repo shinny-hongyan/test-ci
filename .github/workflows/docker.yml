@@ -19,7 +19,7 @@ jobs:
           path: |
             ${{ github.workspace }}/vcpkg
             ~/.cache/vcpkg/archives
-          key: ubuntu-latest-vcpkg-${{ hashFiles('**/vcpkg.json') }}
+          key: ubuntu-latest-vcpkg-${{ hashFiles('workspace/vcpkg-x64-linux.txt') }}
           restore-keys: ubuntu-latest-vcpkg-
 
       - name: Run vcpkg
