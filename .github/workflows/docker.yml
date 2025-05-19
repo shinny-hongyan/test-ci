@@ -40,20 +40,10 @@ jobs:
           restore-keys: ubuntu-latest-vcpkg-
 
       - name: Run vcpkg
-        uses: lukka/run-vcpkg@v11
+        uses: lukka/run-vcpkg@v7
         with:
           vcpkgDirectory: "${{ github.workspace }}/vcpkg"
-          vcpkgJsonGlob: "vcpkg.json"
-          runVcpkgInstall: true
-          doNotCache: false
-
-      - name: Build
-        uses: lukka/run-cmake@v10
-        with:
-          cmakeListsTxtPath: "${{ env.WORK_HOME }}/CMakeLists.txt"
-          configurePreset: "default"
-          buildPreset: "release"
-          configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=${{ env.WORK_HOME }}/vcpkg/scripts/buildsystems/vcpkg.cmake']"
+          vcpkgArguments: "@${{ github.workspace }}/workspace/vcpkg-x64-linux.txt"
 
       - name: Test
         run: |
@@ -61,62 +51,62 @@ jobs:
           cd ${{ env.WORK_HOME }}/build
           ./rapidjson_demo
 
-  build-on-docker:
-    runs-on: ubuntu-latest
+  # build-on-docker:
+  #   runs-on: ubuntu-latest
 
-    container:
-      image: "debian:11"
-      options: --shm-size=2g
+  #   container:
+  #     image: "debian:11"
+  #     options: --shm-size=2g
 
-    steps:
-      - name: Install all dependencies
-        run: |
-          apt-get update
-          apt install -y zlib1g zlib1g-dev bzip2 lzma lzma-dev liblzma-dev flex bison
-          apt install -y build-essential git git-lfs wget libssl-dev curl zip unzip tar pkg-config
-          apt-get install -y autoconf-archive elfutils jq
-          apt-get install -y procps findutils grep gawk
-          apt --fix-broken install
-          apt-get install -y postgresql postgresql-client libpq-dev
+  #   steps:
+  #     - name: Install all dependencies
+  #       run: |
+  #         apt-get update
+  #         apt install -y zlib1g zlib1g-dev bzip2 lzma lzma-dev liblzma-dev flex bison
+  #         apt install -y build-essential git git-lfs wget libssl-dev curl zip unzip tar pkg-config
+  #         apt-get install -y autoconf-archive elfutils jq
+  #         apt-get install -y procps findutils grep gawk
+  #         apt --fix-broken install
+  #         apt-get install -y postgresql postgresql-client libpq-dev
 
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          lfs: true
-          submodules: recursive
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+  #       with:
+  #         lfs: true
+  #         submodules: recursive
 
-      - name: Print
-        run: |
-          echo $HOME
-          pwd
-          echo "Current directory: $(pwd)"
-          echo "GitHub workspace: ${{ github.workspace }}"
-          echo "GitHub workspace:" $GITHUB_WORKSPACE
-          echo "GitHub workspace: ${GITHUB_WORKSPACE}" 
-          echo "Contents:"
-          ls -lrth
+  #     - name: Print
+  #       run: |
+  #         echo $HOME
+  #         pwd
+  #         echo "Current directory: $(pwd)"
+  #         echo "GitHub workspace: ${{ github.workspace }}"
+  #         echo "GitHub workspace:" $GITHUB_WORKSPACE
+  #         echo "GitHub workspace: ${GITHUB_WORKSPACE}" 
+  #         echo "Contents:"
+  #         ls -lrth
 
-          git config --global --add safe.directory ${GITHUB_WORKSPACE}
-          echo "WORK_HOME=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
+  #         git config --global --add safe.directory ${GITHUB_WORKSPACE}
+  #         echo "WORK_HOME=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
 
-      - name: Install CMake
-        uses: lukka/get-cmake@latest
+  #     - name: Install CMake
+  #       uses: lukka/get-cmake@latest
 
-      - name: Run vcpkg
-        uses: lukka/run-vcpkg@v11
+  #     - name: Run vcpkg
+  #       uses: lukka/run-vcpkg@v11
 
-      - name: Build 
-        uses: lukka/run-cmake@v10
-        with:
-          cmakeListsTxtPath: "${{ env.WORK_HOME }}/CMakeLists.txt"
-          configurePreset: "default"
-          buildPreset: "release"
-          configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=${{ env.WORK_HOME }}/vcpkg/scripts/buildsystems/vcpkg.cmake']"
+  #     - name: Build 
+  #       uses: lukka/run-cmake@v10
+  #       with:
+  #         cmakeListsTxtPath: "${{ env.WORK_HOME }}/CMakeLists.txt"
+  #         configurePreset: "default"
+  #         buildPreset: "release"
+  #         configurePresetAdditionalArgs: "['-DCMAKE_TOOLCHAIN_FILE=${{ env.WORK_HOME }}/vcpkg/scripts/buildsystems/vcpkg.cmake']"
 
-      - name: Test
-        run: |
-          ls -lrth
-          cd ${{ env.WORK_HOME }}/build
-          ./rapidjson_demo
+  #     - name: Test
+  #       run: |
+  #         ls -lrth
+  #         cd ${{ env.WORK_HOME }}/build
+  #         ./rapidjson_demo
 
 
