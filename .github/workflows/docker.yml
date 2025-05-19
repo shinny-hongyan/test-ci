@@ -13,6 +13,15 @@ jobs:
           lfs: true
           submodules: recursive
 
+      - name: Cache vcpkg 
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ github.workspace }}/vcpkg
+            ~/.cache/vcpkg/archives
+          key: ubuntu-latest-vcpkg-${{ hashFiles('**/vcpkg.json') }}
+          restore-keys: ubuntu-latest-vcpkg-
+
       - name: Run vcpkg
         uses: lukka/run-vcpkg@v7
         with:
