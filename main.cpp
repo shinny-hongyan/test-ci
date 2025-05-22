@@ -21,7 +21,7 @@ int main()
     document.AddMember("age", 30, allocator);
     document.AddMember("isStudent", false, allocator);
 
-    // 添加数组
+    // 添加数组 
     Value hobbies(kArrayType);
     hobbies.PushBack("读书", allocator);
     hobbies.PushBack("游泳", allocator);
